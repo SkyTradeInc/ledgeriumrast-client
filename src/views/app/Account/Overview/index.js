@@ -43,7 +43,7 @@ class AccountExtend extends Component {
         </CardTitle>
         <p>Email Verified {this.state.accountInfo.emailVerified ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
         <p>Two Factor Authentication {this.state.accountInfo.twoFactorEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
-        <p>API Keys {this.state.accountInfo.apiKeys ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
+        <p>API Keys {this.state.accountInfo.apiKeysEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
 
 
       </div>

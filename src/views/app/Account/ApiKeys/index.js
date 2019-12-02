@@ -13,7 +13,6 @@ class AccountExtend extends Component {
       apiKeysEnabled: false,
       twoFactorEnabled: false,
       apiKey: '',
-      secretKey: '',
       message: '',
     }
   }
@@ -87,15 +86,6 @@ class AccountExtend extends Component {
           </CopyToClipboard>
 
           <br/><br/>
-          <CardTitle> Secret Key </CardTitle>
-          {this.state.secretKey !== '' ? <CopyToClipboard text={this.state.secretKey}
-            onCopy={() => this.setState({copied: true})}>
-            <a data-tip="Copy to Clipboard" href="#">{this.state.secretKey} <i className="white far fa-clipboard"/> </a>
-          </CopyToClipboard> : null}
-          {this.state.secretKey === '' ? <p> For Security purposes, you cannot retrieve your Secret Key. You will have to generate a new set of keys if you have lost them.</p> : null}
-
-          <br/>
-          {this.state.secretKey !== '' ? <p><br/> Store your Secret Key somewhere safe. It will not be shown again. </p> : null }
 
           <Button
             color="primary"
@@ -116,15 +106,13 @@ class AccountExtend extends Component {
           </CardTitle>
           {this.state.message === "" ? <p></p> : <p>{this.state.message}</p>}
           <p>
-          Creating an API private key provides access to markets and real-time trading services on Cortrex via a third-party site or application. <a href="https://docs.cortrex.org" target="_blank">View API documentation.</a>
+          Create an API key to gain access to the Rast develoepr endpoints
           </p>
-          {!this.state.twoFactorEnabled ? <p>You must have Google Authenticator enabled to create API keys</p> : null}
 
           <Button
             color="primary"
             className="btn-shadow"
             size="lg"
-            disabled={!this.state.twoFactorEnabled}
             onClick={this.createAPIKeys}
           >
           Create API keys
