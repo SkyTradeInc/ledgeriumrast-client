@@ -300,6 +300,7 @@ class AccountExtend extends Component {
         <CardTitle>
         Enable Google Authenticator - Step 4
         </CardTitle>
+        <p> To finailize, please enter the code shown on your device </p>
 
         <ReactCodeInput autoFocus={true} onComplete={this.set2FA}/>
         <p></p>
