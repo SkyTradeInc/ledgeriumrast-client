@@ -11,7 +11,7 @@ instance.interceptors.response.use( (response) => {
    return response;
 }, (error) => {
   console.log(error.response)
-   switch (error.response.status) {
+   switch (error.response) {
         default:
             return error.response;
             break;
