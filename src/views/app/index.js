@@ -3,9 +3,9 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import AppLayout from "../../layout/AppLayout";
 import account from "./Account/"
+import documentation from "./Documentation"
 
 import {baseURL} from "../../constants/defaultValues";
-
 
 class App extends Component {
   render() {
@@ -15,6 +15,8 @@ class App extends Component {
         <Switch>
         <Redirect exact from={`${match.url}/`} to={`${match.url}/account`} />
           <Route path={`${match.url}/account`} component={account} />
+          <Route path={`${match.url}/documentation`} component={documentation} />
+
           <Redirect to="/error" />
         </Switch>
       </AppLayout>
