@@ -261,7 +261,7 @@ const methods = [
         description: 'integer of a block number, or the string "earliest", "latest" or "pending"',
         types: ['string', 'number'],
         required: true
-      }
+      },
       {
         name: 'Transaction Index Position',
         description: 'a hex of the integer representing the position in the block',
@@ -485,6 +485,7 @@ export default class Documentation extends Component {
     rpcObject.params = []
     this.setState({
       selectedMethod: methods[i],
+      response: '',
       rpcObject
     })
   }
@@ -527,6 +528,7 @@ export default class Documentation extends Component {
                     {"False"} <Input type="radio" value={false} id={i} onChange={this.inputChange}/>
                     </FormGroup>
                     </> : <Input type="text" id={i} onChange={this.inputChange} placeholder={param.description}/>}
+                    
                     <br/>
                     </>
                   )
