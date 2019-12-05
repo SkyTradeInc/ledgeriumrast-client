@@ -235,6 +235,42 @@ const methods = [
     ]
   },
   {
+    name: 'eth_getTransactionByBlockHashAndIndex',
+    description: 'Returns information about a transaction by block hash and transaction index position.',
+    params: [
+      {
+        name: 'Block Hash',
+        description: 'a string representing the hash (32 bytes) of a block',
+        types: ['string'],
+        required: true
+      },
+      {
+        name: 'Transaction Index Position',
+        description: 'a hex of the integer representing the position in the block',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_getTransactionByBlockNumberAndIndex',
+    description: 'Returns information about a transaction by block number and transaction index position.',
+    params: [
+      {
+        name: 'Block Paramater',
+        description: 'integer of a block number, or the string "earliest", "latest" or "pending"',
+        types: ['string', 'number'],
+        required: true
+      }
+      {
+        name: 'Transaction Index Position',
+        description: 'a hex of the integer representing the position in the block',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
     name: 'eth_getTransactionByHash',
     description: 'Returns information about a transaction for a given hash.',
     params: [
@@ -245,6 +281,153 @@ const methods = [
         required: true
       }
     ]
+  },
+  {
+    name: 'eth_getTransactionCount',
+    description: 'Returns the number of transactions sent from an address.',
+    params: [
+      {
+        name: 'Address',
+        description: 'a string representing the address (20 bytes) of the code',
+        types: ['string'],
+        required: true
+      },
+      {
+        name: 'Block Paramater',
+        description: 'integer of a block number, or the string "earliest", "latest" or "pending"',
+        types: ['string', 'number'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_getTransactionReceipt',
+    description: 'Returns the receipt of a transaction by transaction hash. Note that the receipt is not available for pending transactions.',
+    params: [
+      {
+        name: 'Transaction Hash',
+        description: 'a string representing the hash (32 bytes) of a transaction',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_getUncleByBlockHashAndIndex',
+    description: 'Returns information about the "Uncle" of a block by hash and the Uncle index position.',
+    params: [
+      {
+        name: 'Block Hash',
+        description: 'a string representing the hash (32 bytes) of a block',
+        types: ['string'],
+        required: true
+      },
+      {
+        name: 'Uncle Index Position',
+        description: 'hex of the integer indicating the uncles index position.',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_getTransactionByBlockNumberAndIndex',
+    description: 'Returns information about a transaction by block number and transaction index position.',
+    params: [
+      {
+        name: 'Block Paramater',
+        description: 'integer of a block number, or the string "earliest", "latest" or "pending"',
+        types: ['string', 'number'],
+        required: true
+      },
+      {
+        name: 'Uncle Index Position',
+        description: 'hex of the integer indicating the uncles index position.',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_getUncleCountByBlockHash',
+    description: 'Returns the number of uncles in a block from a block matching the given block hash.',
+    params: [
+      {
+        name: 'Block Hash',
+        description: 'a string representing the hash (32 bytes) of a block',
+        types: ['string'],
+        required: true
+      },
+    ]
+  },
+  {
+    name: 'eth_getUncleCountByBlockNumber',
+    description: 'Returns the number of uncles in a block from a block matching the given block number.',
+    params: [
+      {
+        name: 'Block Paramater',
+        description: 'integer of a block number, or the string "earliest", "latest" or "pending"',
+        types: ['string', 'number'],
+        required: true
+      },
+    ]
+  },
+  {
+    name: 'eth_getWork',
+    description: 'Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").',
+    params: []
+  },
+  {
+    name: 'eth_hashrate',
+    description: 'Returns the number of hashes per second that the node is mining with. Only applicable when the node is mining.',
+    params: []
+  },
+  {
+    name: 'eth_mining',
+    description: 'Returns true if client is actively mining new blocks.',
+    params: []
+  },
+  {
+    name: 'eth_protocolVersion',
+    description: 'Returns the current ethereum protocol version.',
+    params: []
+  },
+  {
+    name: 'eth_sendRawTransaction',
+    description: 'Submits a pre-signed transaction for broadcast to the Ethereum network.',
+    params: [
+      {
+        name: 'Transaction Data',
+        description: 'The signed transaction data.',
+        types: ['string'],
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'eth_syncing',
+    description: 'Returns an object with data about the sync status or false.',
+    params: []
+  },
+  {
+    name: 'net_listening',
+    description: 'Returns true if client is actively listening for network connections.',
+    params: []
+  },
+  {
+    name: 'net_peerCount',
+    description: 'Returns the number of peers currently connected to the client.',
+    params: []
+  },
+  {
+    name: 'net_version',
+    description: 'Returns the current network id.',
+    params: []
+  },
+  {
+    name: 'web3_clientVersion',
+    description: 'Returns the current client version.',
+    params: []
   }
 ]
 
