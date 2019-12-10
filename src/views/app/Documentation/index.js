@@ -444,7 +444,7 @@ export default class Documentation extends Component {
       },
       selectedMethod: false,
       response: '',
-      apiKey: '322970fbb2bf9127cfa1613981844fa6b8dd1433e9122edf833aeb31613533c7'
+      apiKey: 'bb1590a268f3a09841ae9903bdb4dddd3cf5e74afb1728c21ca8b46cf8c7b32e'
     };
   }
 
@@ -528,7 +528,7 @@ export default class Documentation extends Component {
                     {"False"} <Input type="radio" value={false} id={i} onChange={this.inputChange}/>
                     </FormGroup>
                     </> : <Input type="text" id={i} onChange={this.inputChange} placeholder={param.description}/>}
-                    
+
                     <br/>
                     </>
                   )
