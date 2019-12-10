@@ -10,6 +10,15 @@ import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3'
 import { reCaptchaKey } from "../../constants/defaultValues"
 import api from '../../components/api'
 import Web3 from 'web3'
+import { css } from '@emotion/core';
+
+import BounceLoader from 'react-spinners/BounceLoader';
+
+const override = css`
+    display: inline-block;
+    border-color: red;
+    color: white;
+`;
 
 class Login extends Component {
   constructor(props) {
@@ -31,7 +40,7 @@ class Login extends Component {
     loadReCaptcha(reCaptchaKey);
   }
 
-  connectToWallet() {
+  connectToWallet = () => {
     return new Promise(async(resolve, reject) => {
       if(window.ledgerium) {
         const localWeb3 = new Web3(window.ledgerium)
@@ -47,6 +56,8 @@ class Login extends Component {
           console.log(error)
           reject(false)
         }
+      } else {
+        reject(false)
       }
     })
   }
@@ -59,7 +70,10 @@ class Login extends Component {
      })
    }
 
-  loginWithMetamask() {
+  loginWithMetamask = () => {
+    this.setState({
+      message: '',
+    })
     this.connectToWallet()
       .then(() => {
         console.log(this.state.walletKey)
@@ -69,6 +83,18 @@ class Login extends Component {
           .then(response => {
             if(response.data.success) {
               if(response.data.data.requireSig) {
+                this.setState({
+                  message: <span>
+                      <BounceLoader
+                      css={override}
+                      color={"#ffffff"}
+                      sizeUnit={"px"}
+                      size={12}
+                      loading={true}
+                    /> {" "}
+                    Recieved challenge, please sign the request
+                  </span>
+                })
                 const challenge = response.data.data.challenge
                  this.signChallenge(challenge)
                   .then(signature => {
@@ -88,13 +114,17 @@ class Login extends Component {
               }
             } else {
               this.setState({
-                error: response.data.message
+                message: response.data.message
               })
             }
           })
           .catch(console.log)
       })
-      .catch(console.log)
+      .catch(()=>{
+          this.setState({
+            message: 'Cannot connect to wallet'
+          })
+      })
   }
 
   componentWillUnmount() {
@@ -211,7 +241,8 @@ class Login extends Component {
                   <IntlMessages id="user.login-title" />
                 </CardTitle>
                 <Form onSubmit={this.onUserLogin}>
-                {this.props.errorMessage === "" ? <p><br/></p> : <p>{this.props.errorMessage}</p>}
+                {this.props.errorMessage === "" ? <p></p> : <p>{this.props.errorMessage}</p>}
+                {this.state.message === "" ? <p></p> : <p>{this.state.message}</p>}
 
                   <Label className="form-group has-float-label mb-4">
                     <Input
