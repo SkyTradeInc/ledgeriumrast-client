@@ -36,6 +36,7 @@ module.exports = {
   "user.verify-email-button": "VERIFY",
   "user.buy": "BUY",
   "user.username": "Username",
+  "user.enable": "Enable",
 
   "nav.exchange": "Exchange",
   "nav.account": "Account",
@@ -47,6 +48,7 @@ module.exports = {
   "tab.orders": "Orders",
   "tab.google-auth": "Google Authenticator",
   "tab.api-keys": "API Keys",
+  "tab.metamask": "Connect Metamask",
   "tab.change-password": "Change Password",
 
   /* 03.Menu */
