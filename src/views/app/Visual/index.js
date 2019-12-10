@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import api from '../../../components/api'
 import { Colxx } from "../../../components/common/CustomBootstrap";
 import IntlMessages from "../../../helpers/IntlMessages";
 import classnames from 'classnames';
 import Highlight from 'react-highlight'
-import axios from 'axios';
 import Web3 from 'web3';
 
 import {
@@ -22,20 +22,35 @@ import {
   FormGroup
 } from "reactstrap";
 
-const web3WS = new Web3(new Web3.providers.WebsocketProvider("ws://localhost:2906/bb1590a268f3a09841ae9903bdb4dddd3cf5e74afb1728c21ca8b46cf8c7b32e"));
-const web3HTTP = new Web3(new Web3.providers.HttpProvider("http://localhost:2906/bb1590a268f3a09841ae9903bdb4dddd3cf5e74afb1728c21ca8b46cf8c7b32e"));
-export default class Documentation extends Component {
+const web3WS = new Web3(new Web3.providers.WebsocketProvider("ws://localhost:2906/26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d"));
+const web3HTTP = new Web3(new Web3.providers.HttpProvider("http://localhost:2906/26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d"));
+
+export default class Visual extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       transactions: [],
-      apiKey: 'bb1590a268f3a09841ae9903bdb4dddd3cf5e74afb1728c21ca8b46cf8c7b32e'
+      apiKey: '26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d',
+      accountInfo: null,
     }
   }
 
   componentDidMount() {
-    this.listen()
+    api.get('/user/accountInfo', {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+      .then(response => {
+        if(response.data.success) {
+          this.setState({
+            accountInfo: response.data.data
+          })
+          this.listen()
+        }
+      })
+      .catch(console.log)
   }
 
   listen() {
