@@ -6,6 +6,7 @@ import IntlMessages from "../../../helpers/IntlMessages";
 import classnames from 'classnames';
 import Overview from './Overview'
 import TwoFactor from './TwoFactor'
+import Metamask from './Metamask'
 import ApiKeys from './ApiKeys'
 import ChangePassword from './ChangePassword'
 
@@ -93,6 +94,22 @@ export default class ForgotPassword extends Component {
                       <IntlMessages id="tab.api-keys" />
                     </NavLink>
                   </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "metamask",
+                      "nav-link": true,
+                      "hand-pointer": true
+                      })}
+                    onClick={() => {
+                      this.toggleTab("metamask")
+                    }}
+                    to="#"
+                    >
+                      <IntlMessages id="tab.metamask" />
+                    </NavLink>
+                  </NavItem>
+
                   <NavItem>
                     <NavLink
                       className={classnames({
@@ -119,6 +136,10 @@ export default class ForgotPassword extends Component {
 
             <TabPane tabId="2fa">
              <TwoFactor/>
+            </TabPane>
+
+            <TabPane tabId="metamask">
+               <Metamask/>
             </TabPane>
 
             <TabPane tabId="api">
