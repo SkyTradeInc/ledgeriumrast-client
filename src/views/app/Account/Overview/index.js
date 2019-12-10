@@ -9,6 +9,8 @@ class AccountExtend extends Component {
       accountInfo: {
         emailVerified: false,
         apiKeysEnabled: false,
+        publicKey: '',
+        metamaskEnabled: false,
         canDeposit: false,
         canTrade: true,
         canWithdraw: false,
@@ -17,7 +19,7 @@ class AccountExtend extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     api.get('/user/accountInfo', {
       headers: {
         token: localStorage.getItem('token')
@@ -43,9 +45,8 @@ class AccountExtend extends Component {
         </CardTitle>
         <p>Email Verified {this.state.accountInfo.emailVerified ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
         <p>Two Factor Authentication {this.state.accountInfo.twoFactorEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
-        <p>API Keys {this.state.accountInfo.apiKeysEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
-
-
+        <p>API Key {this.state.accountInfo.apiKeysEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
+        <p>Blockchain 1-click login {this.state.accountInfo.publicKey? `(publicKey: ${this.state.accountInfo.publicKey})` : null} {this.state.accountInfo.metamaskEnabled ? <i className="fas fa-check"/> : <i className="fas fa-times"/> }</p>
       </div>
     )
   }
