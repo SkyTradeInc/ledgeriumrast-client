@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import AppLayout from "../../layout/AppLayout";
 import account from "./Account/"
 import documentation from "./Documentation"
+import visual from './Visual'
 
 import {baseURL} from "../../constants/defaultValues";
 
@@ -16,6 +17,7 @@ class App extends Component {
         <Redirect exact from={`${match.url}/`} to={`${match.url}/account`} />
           <Route path={`${match.url}/account`} component={account} />
           <Route path={`${match.url}/documentation`} component={documentation} />
+          <Route path={`${match.url}/visual`} component={visual} />
 
           <Redirect to="/error" />
         </Switch>
