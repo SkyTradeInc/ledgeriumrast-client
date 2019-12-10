@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser, loginUserTwoFactor } from "../../redux/actions";
+import { loginUser, loginUserTwoFactor} from "../../redux/actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 import ReactCodeInput from 'react-verification-code-input';
 import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-v3'
 import { reCaptchaKey } from "../../constants/defaultValues"
+import api from '../../components/api'
+import Web3 from 'web3'
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,8 @@ class Login extends Component {
       require2FA: false,
       password: '',
       message: '',
+      localWeb3: {},
+      walletKey: '',
       twoFactor: '',
       reCaptchaToken: ''
     };
@@ -24,7 +29,72 @@ class Login extends Component {
 
   componentWillMount() {
     loadReCaptcha(reCaptchaKey);
+  }
 
+  connectToWallet() {
+    return new Promise(async(resolve, reject) => {
+      if(window.ledgerium) {
+        const localWeb3 = new Web3(window.ledgerium)
+        try {
+          await window.ledgerium.enable()
+          this.setState({
+            connected: true,
+            walletKey: window.ledgerium.selectedAddress,
+            localWeb3
+          })
+          resolve(true)
+        } catch (error) {
+          console.log(error)
+          reject(false)
+        }
+      }
+    })
+  }
+
+  signChallenge = (challenge) => {
+     return new Promise((resolve, reject) => {
+       this.state.localWeb3.eth.personal.sign(challenge, this.state.walletKey, '')
+         .then(resolve)
+         .catch(reject)
+     })
+   }
+
+  loginWithMetamask() {
+    this.connectToWallet()
+      .then(() => {
+        console.log(this.state.walletKey)
+        api.post('/user/login2', {
+            publicKey: this.state.walletKey
+        })
+          .then(response => {
+            if(response.data.success) {
+              if(response.data.data.requireSig) {
+                const challenge = response.data.data.challenge
+                 this.signChallenge(challenge)
+                  .then(signature => {
+                    api.post('/user/login2', {
+                        publicKey: this.state.walletKey,
+                        challenge,
+                        signature,
+                    })
+                    .then(response => {
+                      if(response.data.success && !response.data.data.requireSig) {
+                        localStorage.setItem('token', response.data.data.token);
+                        window.location.replace('/app');
+                      }
+                    })
+                    .catch(console.log)
+                  })
+              }
+            } else {
+              this.setState({
+                error: response.data.message
+              })
+            }
+          })
+          .catch(console.log)
+      })
+      .catch(console.log)
   }
 
   componentWillUnmount() {
@@ -174,11 +244,20 @@ class Login extends Component {
                       <IntlMessages id="user.forgot-password-question" />
                     </NavLink>
                   </div>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    className="btn-shadow"
+                    size="xs"
+                    onClick={()=>{this.loginWithMetamask()}}
+                  >
+                    Login with Metamask
+                  </Button>
                     <Button
                       type="submit"
                       color="primary"
                       className="btn-shadow"
-                      size="lg"
+                      size="xs"
                     >
                       <IntlMessages id="user.login-button" />
                     </Button>
