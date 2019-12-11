@@ -275,15 +275,14 @@ class Login extends Component {
                       <IntlMessages id="user.forgot-password-question" />
                     </NavLink>
                   </div>
-                  <Button
-                    type="submit"
-                    color="primary"
-                    className="btn-shadow"
-                    size="xs"
-                    onClick={()=>{this.loginWithMetamask()}}
-                  >
-                    Login with Metamask
-                  </Button>
+                    <Button
+                      color="primary"
+                      className="btn-shadow"
+                      size="xs"
+                      onClick={()=>{this.loginWithMetamask()}}
+                    >
+                      Login with Metamask
+                    </Button>
                     <Button
                       type="submit"
                       color="primary"
