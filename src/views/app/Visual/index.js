@@ -22,8 +22,8 @@ import {
   FormGroup
 } from "reactstrap";
 
-const web3WS = new Web3(new Web3.providers.WebsocketProvider("ws://localhost:2906/26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d"));
-const web3HTTP = new Web3(new Web3.providers.HttpProvider("http://localhost:2906/26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d"));
+const web3WS = new Web3(new Web3.providers.WebsocketProvider("ws://localhost:2906/8cff2ea26a96a1024c646bbc648381a29764686de368e8ce6445b0d3db051d3d"));
+const web3HTTP = new Web3(new Web3.providers.HttpProvider("http://localhost:2906/8cff2ea26a96a1024c646bbc648381a29764686de368e8ce6445b0d3db051d3d"));
 
 export default class Visual extends Component {
 
@@ -31,7 +31,7 @@ export default class Visual extends Component {
     super(props);
     this.state = {
       transactions: [],
-      apiKey: '26cd20b679dde67963ba7a0aa944071c07a818698e18fd1063951648a320b69d',
+      apiKey: '8cff2ea26a96a1024c646bbc648381a29764686de368e8ce6445b0d3db051d3d',
       accountInfo: null,
     }
   }
